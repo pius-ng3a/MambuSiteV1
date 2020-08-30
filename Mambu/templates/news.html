@@ -1,0 +1,226 @@
+{% extends "basic_layout.html" %}
+{% load static %}
+{% block content%}
+
+	
+	<!-- Home -->
+
+	<div class="home">
+		<div class="background_image" style="background-image:url({% static 'images/news.jpg' %} )"></div>
+	</div>
+
+	<!-- Search -->
+
+	<div class="home_search">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<div class="home_search_container">
+						<div class="home_search_title">Search news</div>
+						<div class="home_search_content">
+							<form action="#" class="home_search_form" id="home_search_form">
+								<div class="d-flex flex-lg-row flex-column align-items-start justify-content-lg-between justify-content-start">
+									<input type="text" class="search_input search_input_1" placeholder="Category" required="required">
+									<input type="text" class="search_input search_input_2" placeholder="Description" required="required">
+									<input type="text" class="search_input search_input_3" placeholder="Date" required="required">
+									<button class="home_search_button">search</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- News -->
+
+	<div class="news">
+
+		<div class="container">
+			<div class="row">
+
+				<!-- News Container -->
+				<div class="col-lg-8">
+					<div class="news_container">
+						{% if news_items %}
+						  {% for news_i in news_items %}
+							
+							
+							
+							<!-- News Post -->
+							<div class="news_post">
+								<div class="news_post_image">
+									<video width='400' height='400' controls>
+									<source src="{{ news_i.video_url.url }}" type='video/mp4'>
+										Your browser does not support the video tag.
+									</video>
+									<br><br>
+								</div>
+								<div class="news_post_content">
+									<div class="news_post_date d-flex flex-row align-items-end justify-content-start">
+										<div>{{news_i.created_at}}</div>
+										<div> </div>
+									</div>
+									<div class="news_post_title"><a href="#">{{news_i.title}}</a></div>
+									<div class="news_post_category">
+										<ul>
+											<li><a href="#">Enjoy Mambu Socials</a></li>
+										</ul>
+									</div>
+									<div class="news_post_text">
+										<p> {{news_i.description}}</p>
+									</div>
+									<div class="news_post_link"><a href="#">Play</a></div>
+								</div>
+							</div>
+
+						  {% endfor %}
+
+					    {% endif %}
+						
+						
+
+					</div>
+
+					<!-- Pagination -->
+					<div class="pagination">
+						<ul class="d-flex flex-row align-items-start justify-content-start">
+							<li class="active"><a href="#">1.</a></li>
+							<li><a href="#">2.</a></li>
+							<li><a href="#">3.</a></li>
+							<li><a href="#">4.</a></li>
+							<li><a href="#">5.</a></li>
+						</ul>
+					</div>
+				</div>
+
+				<!-- News Sidebar -->
+				<div class="col-lg-4">
+					<div class="news_sidebar">
+
+						<!-- Categories -->
+						<div class="categories">
+							<div class="sidebar_title">Categories</div>
+						</div>
+
+						<!-- Latest News -->
+						<div class="latest">
+							<div class="sidebar_title">Latest News</div>
+							<div class="latest_container">
+								 
+							{% if latest_news %}
+						      {% for news_l in latest_news %}
+							
+							  <div class="latest_post d-flex flex-row align-items-start justify-content-start">
+								<div class="latest_post_image"> 
+									<video width='200' height='200' controls>
+										<source src="{{ news_l.video_url.url }}" type='video/mp4'>
+											Your browser does not support the video tag.
+									</video>
+										<br><br>
+								</div>
+								<div class="latest_post_content" style="padding-left: 5%;">
+									<div class="latest_post_date d-flex flex-row align-items-end justify-content-start">
+										<div class="latest_post_day">{{news_l.created_at}}</div>
+										<div class="latest_post_month"> </div>
+									</div>
+									<div class="latest_post_title"><a href="#">{{news_l.title}}</a></div>
+									<div class="latest_post_text"><p>{{news_l.description}}</p></div>
+								</div>
+							</div>
+							 
+						  {% endfor %}
+						 <hr/>
+						{% endif %}
+						
+						<!-- Latest podcast-->
+						{% if latest_podcast %}
+						      {% for news_p in latest_podcast %}
+							
+							  <div class="latest_post d-flex flex-row align-items-start justify-content-start">
+								<div class="latest_post_image"> 
+									<audio controls preload="auto">
+										
+										<source src="{{ news_p.podcast_url.url }}" type="audio/mpeg">
+											Your browser does not support the video tag.
+										</audio>
+										<br><br>
+								</div>
+								<div class="latest_post_content">
+									<div class="latest_post_date d-flex flex-row align-items-end justify-content-start">
+										<div class="latest_post_day">{{news_p.created_at}}</div>
+										<div class="latest_post_month"> </div>
+									</div>
+									<div class="latest_post_title"><a href="#">{{news_p.title}}</a></div>
+									<div class="latest_post_text"><p>{{news_p.description}}</p></div>
+								</div>
+							</div>
+							 
+						  {% endfor %}
+						 <hr/>
+						{% endif %}
+						
+						<!-- Order podcasts-->
+						{% if podcast_items %}
+						      {% for pod_p in podcast_items %}
+							
+							  <div class="latest_post d-flex flex-row align-items-start justify-content-start">
+								<div class="latest_post_image"> 
+									<audio controls preload="auto">
+										
+										<source src="{{ pod_p.podcast_url.url }}" type="audio/mpeg">
+											Your browser does not support the audio tag.
+										</audio>
+										<br><br>
+								</div>
+								<div class="latest_post_content">
+									<div class="latest_post_date d-flex flex-row align-items-end justify-content-start">
+										<div class="latest_post_day">{{pod_p.created_at}}</div>
+										<div class="latest_post_month"> </div>
+									</div>
+									<div class="latest_post_title"><a href="#">{{pod_p.title}}</a></div>
+									<div class="latest_post_text"><p>{{pod_p.description}}</p></div>
+								</div>
+							</div>
+							 
+						  {% endfor %}
+						 <hr/>
+					    {% endif %}
+ 
+							</div>
+						</div>
+
+						<div class="mambu">
+							<div class="background_image" style="background-image:url({% static 'images/mambu.jpg' %})"></div>
+							<div class="travello_content">
+								<div class="travello_content_inner">
+									<div></div>
+									<div></div>
+								</div>
+							</div>
+							<div class="travello_container">
+								<a href="#">
+									<div class="d-flex flex-column align-items-center justify-content-end">
+										<span class="travello_title">Be Abreast</span>
+										<span class="travello_subtitle">Check Out for Other News Updates Soon</span>
+									</div>
+								</a>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+                 
+
+
+			</div>
+		</div>
+								</div>
+							</div>
+		</div>
+	</div>
+ 
+<script src="{% static 'js/news.js' %}"></script>
+{% endblock%}
+ 
